@@ -28,8 +28,9 @@ app.use(function(req, res, next) {
 app.post("/", jsonParser,function(req,res) {
     // get state variables of web app
     var keys = Object.keys(req.body)
+    console.log('recieved button yo')
 
-    app.get("/", function(req, res) {
+    app.get('/', function(req, res) {
         res.send({"send": "hello mate" });
     });
     // console.log(keys)
@@ -97,12 +98,12 @@ app.post("/", jsonParser,function(req,res) {
 })
 
 
-let port = process.env.PORT || 5001;
+let port = process.env.PORT;
 
-// if(port == null || port == "") {
-//     port = 5001;
-// }
-
+if(port == null || port == "") {
+    port = 5001;
+}
+console.log("port ",port)
 app.listen(port, function() {
 console.log("Server started successfully");
 });
