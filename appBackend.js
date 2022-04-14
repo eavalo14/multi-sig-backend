@@ -7,8 +7,9 @@ import bodyParser from 'body-parser'
 import axios from "axios";
 // var NamiWalletApi = require('./nami').NamiWalletApi
 
-
+// const PORT = process.env.PORT || '8080'
 const app = express();
+// app.set("port",PORT)
 
 var nami =  new NamiWalletApi( blockfrostApiKey ) 
 nami.setPrivateKey(privateKey)
@@ -27,7 +28,13 @@ app.use(function(req, res, next) {
 app.post("/", jsonParser,function(req,res) {
     // get state variables of web app
     var keys = Object.keys(req.body)
+
+    app.get("/", function(req, res) {
+        res.send({"send": "hello mate" });
+    });
+    // console.log(keys)
     // create wallet and send confirmation to user
+    /*
     if (keys.includes('state')){
 
         const state = req.body.state 
@@ -82,7 +89,10 @@ app.post("/", jsonParser,function(req,res) {
 
         submitTransaction()
 
+        
         }
+
+    */
 
 })
 
