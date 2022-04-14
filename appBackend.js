@@ -97,11 +97,11 @@ app.post("/", jsonParser,function(req,res) {
 })
 
 
-let port = process.env.PORT;
+let port = process.env.PORT || 5001;
 
-if(port == null || port == "") {
-    port = 5001;
-}
+// if(port == null || port == "") {
+//     port = 5001;
+// }
 
 app.listen(port, function() {
 console.log("Server started successfully");
