@@ -28,14 +28,14 @@ app.use(function(req, res, next) {
 app.post("/", jsonParser,function(req,res) {
     // get state variables of web app
     var keys = Object.keys(req.body)
-    console.log('recieved button yo')
+    // console.log('recieved button yo')
 
-    app.get('https://minter-machine.herokuapp.com/', function(req, res) {
-        res.send({"send": "hello mate" });
-    });
+    // app.get('https://minter-machine.herokuapp.com/', function(req, res) {
+    //     res.send({"send": "hello mate" });
+    // });
     // console.log(keys)
     // create wallet and send confirmation to user
-    /*
+    
     if (keys.includes('state')){
 
         const state = req.body.state 
@@ -64,7 +64,7 @@ app.post("/", jsonParser,function(req,res) {
         const metaDataHash = nami.hashMetadata(metadata)
 
         // send hashed metadata to front end
-        app.get("/", function(req, res) {
+        app.get("https://minter-machine.herokuapp.com/", function(req, res) {
             res.send({"hashedMeta": metaDataHash });
         });
     }
@@ -93,7 +93,7 @@ app.post("/", jsonParser,function(req,res) {
         
         }
 
-    */
+    
 
 })
 
