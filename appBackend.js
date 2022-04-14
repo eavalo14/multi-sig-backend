@@ -30,7 +30,7 @@ app.post("/", jsonParser,function(req,res) {
     var keys = Object.keys(req.body)
     console.log('recieved button yo')
 
-    app.get('/', function(req, res) {
+    app.get('https://minter-machine.herokuapp.com/', function(req, res) {
         res.send({"send": "hello mate" });
     });
     // console.log(keys)
