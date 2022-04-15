@@ -28,7 +28,7 @@ app.use(function(req, res, next) {
 app.post("/", jsonParser,function(req,res) {
     // get state variables of web app
     var keys = Object.keys(req.body)
-    // console.log('recieved button yo')
+    console.log('recieved button yo')
 
     // app.get('https://minter-machine.herokuapp.com/', function(req, res) {
     //     res.send({"send": "hello mate" });
@@ -64,9 +64,16 @@ app.post("/", jsonParser,function(req,res) {
         const metaDataHash = nami.hashMetadata(metadata)
 
         // send hashed metadata to front end
-        app.get("https://minter-machine.herokuapp.com/", function(req, res) {
+        // app.get("https://minter-machine.herokuapp.com/", function(req, res) {
+        //     res.send({"hashedMeta": metaDataHash });
+        // });
+
+        app.get("https://what-the-actual-fuck.herokuapp.com/", function(req, res) {
+            console.log("sedning hashed metadata")
             res.send({"hashedMeta": metaDataHash });
         });
+        console.log("sent hashed metadata")
+
     }
     else if (keys.includes('witnessBuyer')){
         const witnessBuyer = req.body.witnessBuyer
