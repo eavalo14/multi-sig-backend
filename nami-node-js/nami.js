@@ -469,7 +469,7 @@ class NamiWalletApi {
       
     }
     
-    signTx(txHash,signingKeyHexCBOR){ 
+    signTxCBOR(txHash,signingKeyHexCBOR){ 
 
         const transaction = S.Transaction.from_bytes(Buffer.from(txHash, "hex"));
 
@@ -488,6 +488,25 @@ class NamiWalletApi {
         return Buffer.from(witnessSet.to_bytes(), "hex").toString("hex")
 
     }
+
+    signTx(txHash){ 
+
+        const transaction = S.Transaction.from_bytes(Buffer.from(txHash, "hex"));
+
+        const transaction_body = transaction.body()
+    
+        const txBodyHash = S.hash_transaction(transaction_body)
+    
+        const witness = S.make_vkey_witness(txBodyHash, this.paymentKey.to_raw_key())
+        const witnessSet = S.TransactionWitnessSet.new()
+        const vKeys = S.Vkeywitnesses.new();
+        vKeys.add(witness);
+        witnessSet.set_vkeys(vKeys);
+
+        return Buffer.from(witnessSet.to_bytes(), "hex").toString("hex")
+
+    }
+    
      
 
     async submitTx({

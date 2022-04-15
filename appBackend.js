@@ -7,9 +7,8 @@ import bodyParser from 'body-parser'
 import axios from "axios";
 // var NamiWalletApi = require('./nami').NamiWalletApi
 
-// const PORT = process.env.PORT || '8080'
+
 const app = express();
-// app.set("port",PORT)
 
 var nami =  new NamiWalletApi( blockfrostApiKey ) 
 nami.setPrivateKey(privateKey)
@@ -26,16 +25,10 @@ app.use(function(req, res, next) {
 });
 
 app.post("/", jsonParser,function(req,res) {
+    console.log("post request recieved")
     // get state variables of web app
     var keys = Object.keys(req.body)
-    console.log('recieved button yo')
-
-    // app.get('https://minter-machine.herokuapp.com/', function(req, res) {
-    //     res.send({"send": "hello mate" });
-    // });
-    // console.log(keys)
     // create wallet and send confirmation to user
-    
     if (keys.includes('state')){
 
         const state = req.body.state 
@@ -64,16 +57,9 @@ app.post("/", jsonParser,function(req,res) {
         const metaDataHash = nami.hashMetadata(metadata)
 
         // send hashed metadata to front end
-        // app.get("https://minter-machine.herokuapp.com/", function(req, res) {
-        //     res.send({"hashedMeta": metaDataHash });
-        // });
-
         app.get("https://what-the-actual-fuck.herokuapp.com/", function(req, res) {
-            console.log("sedning hashed metadata")
             res.send({"hashedMeta": metaDataHash });
         });
-        console.log("sent hashed metadata")
-
     }
     else if (keys.includes('witnessBuyer')){
         const witnessBuyer = req.body.witnessBuyer
@@ -82,7 +68,8 @@ app.post("/", jsonParser,function(req,res) {
         async function submitTransaction(){
 
             //console.log("Signing Transaction...")
-            let witnessMinting = nami.signTx(transaction,"6b7ec28038c9a2862761c5fc9352a63cfff7cc02060266a0b12e62553f2710dd")
+            let witnessMinting = nami.signTxCBOR(transaction,"6b7ec28038c9a2862761c5fc9352a63cfff7cc02060266a0b12e62553f2710dd")
+            // let witnessMinting = nami.signTx(transaction)
             let witnesses = [witnessBuyer, witnessMinting]
             //console.log("Transaction signed!")
             
@@ -93,14 +80,13 @@ app.post("/", jsonParser,function(req,res) {
                 networkId : 0, 
                 metadata: metadata
             }) 
+            console.log("tx hash")
+            console.log(txHash)
         }
 
         submitTransaction()
 
-        
         }
-
-    
 
 })
 
@@ -110,7 +96,7 @@ let port = process.env.PORT;
 if(port == null || port == "") {
     port = 5001;
 }
-console.log("port ",port)
+
 app.listen(port, function() {
 console.log("Server started successfully");
 });
