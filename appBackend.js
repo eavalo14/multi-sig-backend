@@ -47,7 +47,7 @@ app.post("/", jsonParser,function(req,res) {
                         "name":"Test1",
                         "description":"This is a test NFT",
                         "hello": "you are awesome",
-                        "image":"ipfs://QmP6Cj35VRv1air5CCkjVkXXpYAMbWRu24UxihiRCbYHoe"
+                        "image":"ipfs://QmXbTPqjM5JPXpDUsoipNLE3XNXtCXMojmx8RizLZ5nNLV"
                     }
                 }
             }
