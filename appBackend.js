@@ -57,7 +57,7 @@ app.post("/", jsonParser,function(req,res) {
         const metaDataHash = nami.hashMetadata(metadata)
 
         // send hashed metadata to front end
-        app.get("https://what-the-actual-fuck.herokuapp.com/", function(req, res) {
+        app.get("/", function(req, res) {
             res.send({"hashedMeta": metaDataHash });
         });
     }
